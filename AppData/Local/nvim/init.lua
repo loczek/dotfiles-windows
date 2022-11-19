@@ -1,11 +1,11 @@
-vim.g.mapleader = " "
+vim.g.mapleader = " "              -- prefix for custom mapings of keys
 vim.opt.number = true              -- add number lines
-vim.opt.mouse = "a"                -- add ability to use mouse 
+vim.opt.mouse = "a"                -- add ability to use mouse
 vim.opt.relativenumber = true      -- relative numbers
-vim.opt.tabstop = 4 
+vim.opt.tabstop = 4                -- number of spaces when pressing <Tab>
 vim.opt.softtabstop = 0            -- ? was set to 4
-vim.opt.shiftwidth = 4
-vim.opt.smartindent = true
+vim.opt.shiftwidth = 4             -- number of spaces for each indent
+vim.opt.smartindent = true         -- indent new line
 vim.opt.expandtab = true           -- convert tabs into spaces
 vim.opt.hidden = true              -- use hidden buffers
 vim.opt.wrap = false               -- wrap line
