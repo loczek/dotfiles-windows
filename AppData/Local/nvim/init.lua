@@ -16,6 +16,7 @@ vim.opt.undofile=true              -- save file history?
 vim.opt.clipboard = "unnamedplus"  -- sync nvim with system clipboard
 
 require'lspconfig'.tsserver.setup {}
+require('plugins')
 require('keymap')
 
 vim.cmd([[
