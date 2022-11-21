@@ -36,7 +36,7 @@ db.custom_center = {
 		icon = "  ",
 		desc = "Browse dotfiles                  ",
 		shortcut = "SPC v b",
-		action = "Telescope find_files cwd=~/AppData/Local/nvim/ search_dirs=Ultisnips,lua,viml,init.vim",
+		action = "Telescope find_files cwd=~/Appdata/Local/nvim",
 	},
 	{
 		icon = "  ",
