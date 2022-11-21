@@ -22,7 +22,6 @@ db.custom_header = {
 db.custom_center = {
 	{
 		icon = "  ",
-
 		desc = "New file                           ",
 		shortcut = ":enew",
 		action = "enew",
@@ -41,7 +40,7 @@ db.custom_center = {
 	},
 	{
 		icon = "  ",
-		desc = "Update plugins              ",
+		desc = "Update plugins                ",
 		shortcut = ":PackerSync",
 		action = "PackerSync",
 	},
@@ -53,7 +52,7 @@ db.custom_center = {
 	},
 	{
 		icon = "  ",
-		desc = "Close neovim                       ",
+		desc = "Close neovim                         ",
 		shortcut = ":qa!",
 		action = "qa!",
 	},
