@@ -14,8 +14,8 @@ vim.opt.scrolloff = 8              -- keep n distance from top and bottom of the
 vim.opt.signcolumn = "yes"         -- add column on the left for icons, errors etc.
 vim.opt.undofile=true              -- save file history?
 vim.opt.clipboard = "unnamedplus"  -- sync nvim with system clipboard
+vim.opt.completeopt = {"menu","menuone","noselect"}
 
-require'lspconfig'.tsserver.setup {}
 require('plugins')
 require('keymap')
 
@@ -24,6 +24,13 @@ colorscheme material
 set undodir=~/.vim/undodir
 command! -nargs=0 Prettier :CocCommand prettier.forceFormatDocument
 ]])
---if (has("termguicolors")) 
+--if (has("termguicolors"))
 --    set termguicolors
 --endif
+local autocmd = vim.api.nvim_create_autocmd
+
+autocmd({"BufWritePre"}, {
+    group = ThePrimeagenGroup,
+    pattern = "*",
+    command = "%s/\\s\\+$//e",
+})

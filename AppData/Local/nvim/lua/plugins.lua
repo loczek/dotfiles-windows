@@ -24,8 +24,6 @@ return require('packer').startup(function(use)
   use 'neovim/nvim-lspconfig'
   -- another theme
   use 'kaicataldo/material.vim'
-  -- autocompletion
-  use { 'neoclide/coc.nvim', branch = 'release' }
   -- fzf (fuzzy finder)
   use { 'junegunn/fzf', run = ':call fzf#install()' }
   -- fzf vim plugin itself
@@ -34,4 +32,15 @@ return require('packer').startup(function(use)
   use 'nvim-tree/nvim-web-devicons'
   -- add undo tree
   use 'mbbill/undotree'
+  -- grep for telescope
+  use 'BurntSushi/ripgrep'
+  -- autocomplete
+  use 'hrsh7th/nvim-cmp'
+  use 'hrsh7th/cmp-nvim-lsp'
+  use 'hrsh7th/cmp-buffer'
+  use 'hrsh7th/cmp-path'
+  -- snippets
+  use({"L3MON4D3/LuaSnip", tag = "v<CurrentMajor>.*"})
+  -- connect luasnip with cmp
+  use 'saadparwaiz1/cmp_luasnip'
 end)

@@ -3,7 +3,7 @@ local options = { noremap = true }
 
 map("n", "<A-j>", ":m +1<CR>==", options)
 map("n", "<A-k>", ":m -2<CR>==", options)
-map("n", "<Leader>vb", ":Telescope find_files cwd=~/AppData/Local/nvim/ search_dirs=Ultisnips,lua,viml,init.vim<cr>", options)
+map("n", "<Leader>vb", ":Telescope find_files cwd=~/Appdata/Local/nvim<cr>", options)
 map("n", "<F5>", ":UndotreeToggle<CR>", options)
 map("n", "<C-n>", ":NERDTreeToggle<CR>", options)
 
