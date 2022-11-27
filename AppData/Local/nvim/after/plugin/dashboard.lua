@@ -1,4 +1,5 @@
 local db = require('dashboard')
+local builtin = require('telescope.builtin')
 
 db.custom_header = {
     '                                         ',
@@ -30,7 +31,9 @@ db.custom_center = {
 		icon = "  ",
 		desc = "Find file                          ",
 		shortcut = "SPC f",
-		action = "Telescope find_files hidden=true no_ignore=true",
+		action = function()
+            builtin.find_files()
+        end
 	},
 	{
 		icon = "  ",
