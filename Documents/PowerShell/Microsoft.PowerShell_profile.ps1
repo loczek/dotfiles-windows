@@ -6,6 +6,9 @@ function dotfiles { git --git-dir=$Home/.dotfiles/ --work-tree=$HOME @Args }
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 
+# tab style completions
+Set-PSReadLineKeyHandler -Key Tab -Function Complete
+
 # Import Terminal Icons
 Import-Module -Name Terminal-Icons
 
