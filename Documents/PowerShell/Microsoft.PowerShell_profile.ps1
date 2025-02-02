@@ -182,3 +182,5 @@ function pkill($name) {
 function pgrep($name) {
         Get-Process $name
 }
+
+Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
