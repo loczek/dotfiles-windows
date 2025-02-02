@@ -1,6 +1,7 @@
 oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/lambda.omp.json" | Invoke-Expression
 
-function dotfiles { git --git-dir=$Home/.dotfiles/ --work-tree=$HOME @Args }
+function dotfiles { git --git-dir=$Home/dotfiles/ --work-tree=$HOME @Args }
+function dotfiles-lazy { lazygit --git-dir=$Home/dotfiles/ --work-tree=$HOME @Args }
 
 fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
 
