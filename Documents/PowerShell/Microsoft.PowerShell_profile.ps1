@@ -2,6 +2,8 @@ oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/lambda.omp.json" | Invoke-E
 
 function dotfiles { git --git-dir=$Home/.dotfiles/ --work-tree=$HOME @Args }
 
+fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
+
 # up and down arrow keys to search in history
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
