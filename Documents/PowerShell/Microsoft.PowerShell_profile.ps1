@@ -87,23 +87,16 @@ Function Test-CommandExists
 #
 # If your favorite editor is not here, add an elseif and ensure that the directory it is installed in exists in your $env:Path
 #
-if (Test-CommandExists nvim) {
-    $EDITOR='nvim'
-} elseif (Test-CommandExists pvim) {
-    $EDITOR='pvim'
-} elseif (Test-CommandExists vim) {
-    $EDITOR='vim'
-} elseif (Test-CommandExists vi) {
-    $EDITOR='vi'
-} elseif (Test-CommandExists code) {
-    #VS Code
+if (Test-CommandExists zed) {
+    $EDITOR='zed'
+}elseif (Test-CommandExists code) {
     $EDITOR='code'
-} elseif (Test-CommandExists notepad) {
-    #fallback to notepad since it exists on every windows machine
+} elseif (Test-CommandExists nvim) {
+    $EDITOR='nvim'
+}  elseif (Test-CommandExists notepad) {
     $EDITOR='notepad'
 }
-Set-Alias -Name vim -Value $EDITOR
-
+Set-Alias -Name code -Value $EDITOR
 
 function ll { Get-ChildItem -Path $pwd -File }
 function g { Set-Location $HOME\Documents\Github }
