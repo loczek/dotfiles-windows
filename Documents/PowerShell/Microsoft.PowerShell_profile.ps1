@@ -12,6 +12,9 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 # tab style completions
 Set-PSReadLineKeyHandler -Key Tab -Function Complete
 
+$env:_PSFZF_FZF_DEFAULT_OPTS="--height 40%"
+Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
+
 # Import Terminal Icons
 Import-Module -Name Terminal-Icons
 
