@@ -1,4 +1,4 @@
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/lambda.omp.json" | Invoke-Expression
+oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/pure.omp.json" | Invoke-Expression
 
 function dotfiles { git --git-dir=$Home/dotfiles/ --work-tree=$HOME @Args }
 function dotfiles-lazy { lazygit --git-dir=$Home/dotfiles/ --work-tree=$HOME @Args }
