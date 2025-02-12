@@ -128,20 +128,56 @@ Function Get-PubIP {
  (Invoke-WebRequest http://ifconfig.me/ip ).Content
 }
 function uptime {
-		$bootUpTime = Get-WmiObject win32_operatingsystem | Select-Object lastbootuptime
-		$plusMinus = $bootUpTime.lastbootuptime.SubString(21,1)
-        $plusMinusMinutes = $bootUpTime.lastbootuptime.SubString(22, 3)
-        $hourOffset = [int]$plusMinusMinutes/60
-        $minuteOffset = 00
-        if ($hourOffset -contains '.') { $minuteOffset = [int](60*[decimal]('.' + $hourOffset.ToString().Split('.')[1]))}
-          if ([int]$hourOffset -lt 10 ) { $hourOffset = "0" + $hourOffset + $minuteOffset.ToString().PadLeft(2,'0') } else { $hourOffset = $hourOffset + $minuteOffset.ToString().PadLeft(2,'0') }
-        $leftSplit = $bootUpTime.lastbootuptime.Split($plusMinus)[0]
-        $upSince = [datetime]::ParseExact(($leftSplit + $plusMinus + $hourOffset), 'yyyyMMddHHmmss.ffffffzzz', $null)
-        Get-WmiObject win32_operatingsystem | Select-Object @{LABEL='Machine Name'; EXPRESSION={$_.csname}}, @{LABEL='Last Boot Up Time'; EXPRESSION={$upsince}}
+    try {
+        # check powershell version
+        if ($PSVersionTable.PSVersion.Major -eq 5) {
+            $lastBoot = (Get-WmiObject win32_operatingsystem).LastBootUpTime
+            $bootTime = [System.Management.ManagementDateTimeConverter]::ToDateTime($lastBoot)
+        } else {
+            $lastBootStr = net statistics workstation | Select-String "since" | ForEach-Object { $_.ToString().Replace('Statistics since ', '') }
+            # check date format
+            if ($lastBootStr -match '^\d{2}/\d{2}/\d{4}') {
+                $dateFormat = 'dd/MM/yyyy'
+            } elseif ($lastBootStr -match '^\d{2}-\d{2}-\d{4}') {
+                $dateFormat = 'dd-MM-yyyy'
+            } elseif ($lastBootStr -match '^\d{4}/\d{2}/\d{2}') {
+                $dateFormat = 'yyyy/MM/dd'
+            } elseif ($lastBootStr -match '^\d{4}-\d{2}-\d{2}') {
+                $dateFormat = 'yyyy-MM-dd'
+            } elseif ($lastBootStr -match '^\d{2}\.\d{2}\.\d{4}') {
+                $dateFormat = 'dd.MM.yyyy'
+            }
 
-        #Works for Both (Just outputs the DateTime instead of that and the machine name)
-        net statistics workstation | Select-String "since" | foreach-object {$_.ToString().Replace('Statistics since ', '')}
+            # check time format
+            if ($lastBootStr -match '\bAM\b' -or $lastBootStr -match '\bPM\b') {
+                $timeFormat = 'h:mm:ss tt'
+            } else {
+                $timeFormat = 'HH:mm:ss'
+            }
 
+            $bootTime = [System.DateTime]::ParseExact($lastBootStr, "$dateFormat $timeFormat", [System.Globalization.CultureInfo]::InvariantCulture)
+        }
+
+        # Format the start time
+        ### $formattedBootTime = $bootTime.ToString("dddd, MMMM dd, yyyy HH:mm:ss", [System.Globalization.CultureInfo]::InvariantCulture)
+        $formattedBootTime = $bootTime.ToString("dddd, MMMM dd, yyyy HH:mm:ss", [System.Globalization.CultureInfo]::InvariantCulture) + " [$lastBootStr]"
+        Write-Host "System started on: $formattedBootTime" -ForegroundColor DarkGray
+
+        # calculate uptime
+        $uptime = (Get-Date) - $bootTime
+
+        # Uptime in days, hours, minutes, and seconds
+        $days = $uptime.Days
+        $hours = $uptime.Hours
+        $minutes = $uptime.Minutes
+        $seconds = $uptime.Seconds
+
+        # Uptime output
+        Write-Host ("Uptime: {0} days, {1} hours, {2} minutes, {3} seconds" -f $days, $hours, $minutes, $seconds) -ForegroundColor Blue
+
+    } catch {
+        Write-Error "An error occurred while retrieving system uptime."
+    }
 }
 function reload-profile {
         & $profile
