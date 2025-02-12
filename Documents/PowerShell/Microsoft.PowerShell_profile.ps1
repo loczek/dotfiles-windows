@@ -219,6 +219,49 @@ function pkill($name) {
 function pgrep($name) {
     Get-Process $name
 }
+function head {
+    param($Path, $n = 10)
+    Get-Content $Path -Head $n
+}
+function tail {
+    param($Path, $n = 10, [switch]$f = $false)
+    Get-Content $Path -Tail $n -Wait:$f
+}
+function nf { param($name) New-Item -ItemType "file" -Path . -Name $name }
+function mkcd { param($dir) mkdir $dir -Force; Set-Location $dir }
+function trash($path) {
+    $fullPath = (Resolve-Path -Path $path).Path
+
+    if (Test-Path $fullPath) {
+        $item = Get-Item $fullPath
+
+        if ($item.PSIsContainer) {
+          # Handle directory
+            $parentPath = $item.Parent.FullName
+        } else {
+            # Handle file
+            $parentPath = $item.DirectoryName
+        }
+
+        $shell = New-Object -ComObject 'Shell.Application'
+        $shellItem = $shell.NameSpace($parentPath).ParseName($item.Name)
+
+        if ($item) {
+            $shellItem.InvokeVerb('delete')
+            Write-Host "Item '$fullPath' has been moved to the Recycle Bin."
+        } else {
+            Write-Host "Error: Could not find the item '$fullPath' to trash."
+        }
+    } else {
+        Write-Host "Error: Item '$fullPath' does not exist."
+    }
+}
+
+function k9 { Stop-Process -Name $args[0] }
+function sysinfo { Get-ComputerInfo }
+function flushdns {
+	Clear-DnsClientCache
+	Write-Host "DNS has been flushed"
 }
 
 Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
