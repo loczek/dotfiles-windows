@@ -113,6 +113,7 @@ if (Test-CommandExists zed) {
 Set-Alias -Name code -Value $EDITOR
 
 function g { Set-Location $HOME\Documents\Github }
+function la { Get-ChildItem -Path . -Force | Format-Table -AutoSize }
 function ll { Get-ChildItem -Path . -Force -Hidden | Format-Table -AutoSize }
 function gcom {
     git add .
