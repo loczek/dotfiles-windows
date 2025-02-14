@@ -219,6 +219,16 @@ function pkill($name) {
 function pgrep($name) {
     Get-Process $name
 }
+function encode64($value) {
+    $Bytes = [System.Text.Encoding]::Unicode.GetBytes($value)
+    $EncodedText =[Convert]::ToBase64String($Bytes)
+    $EncodedText
+}
+function decode64($value) {
+    $Bytes = [Convert]::FromBase64String($value)
+    $DecodedText = [System.Text.Encoding]::Unicode.GetString($Bytes)
+    $DecodedText
+}
 function head {
     param($Path, $n = 10)
     Get-Content $Path -Head $n
