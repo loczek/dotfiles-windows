@@ -5,6 +5,19 @@ function dotfiles-lazy { lazygit --git-dir=$Home/dotfiles/ --work-tree=$HOME @Ar
 
 fnm env --use-on-cd --shell powershell | Out-String | Invoke-Expression
 
+$IgnoreWithSpaces = {
+    Param([string] $line)
+
+    if ($line -match "^\s") {
+        return $false
+    } else {
+        return $true
+    }
+}
+
+Set-PSReadLineOption -AddToHistoryHandler $IgnoreWithSpaces
+Set-PSReadLineOption -BellStyle None
+
 # up and down arrow keys to search in history
 Set-PSReadLineKeyHandler -Key UpArrow -Function HistorySearchBackward
 Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
