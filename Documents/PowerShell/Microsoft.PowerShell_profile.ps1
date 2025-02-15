@@ -47,14 +47,10 @@ function HKCU:  { Set-Location HKCU: }
 function Env:   { Set-Location Env: }
 
 # Does the the rough equivalent of dir /s /b. For example, dirs *.png is dir /s /b *.png
-function dirs
-{
-    if ($args.Count -gt 0)
-    {
+function dirs {
+    if ($args.Count -gt 0) {
         Get-ChildItem -Recurse -Include "$args" | Foreach-Object FullName
-    }
-    else
-    {
+    } else {
         Get-ChildItem -Recurse | Foreach-Object FullName
     }
 }
@@ -62,15 +58,11 @@ function dirs
 # Simple function to start a new elevated process. If arguments are supplied then
 # a single command is started with admin rights; if not then a new admin instance
 # of PowerShell is started.
-function admin
-{
-    if ($args.Count -gt 0)
-    {
+function admin {
+    if ($args.Count -gt 0) {
        $argList = "& '" + $args + "'"
        Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
-    }
-    else
-    {
+    } else {
        Start-Process "$psHome\powershell.exe" -Verb runAs
     }
 }
@@ -82,14 +74,10 @@ Set-Alias -Name sudo -Value admin
 
 
 # Make it easy to edit this profile once it's installed
-function Edit-Profile
-{
-    if ($host.Name -match "ise")
-    {
+function Edit-Profile {
+    if ($host.Name -match "ise") {
         $psISE.CurrentPowerShellTab.Files.Add($profile.CurrentUserAllHosts)
-    }
-    else
-    {
+    } else {
         notepad $profile.CurrentUserAllHosts
     }
 }
@@ -99,8 +87,7 @@ function Edit-Profile
 Remove-Variable identity
 Remove-Variable principal
 
-Function Test-CommandExists
-{
+Function Test-CommandExists {
     Param ($command)
     $oldPreference = $ErrorActionPreference
     $ErrorActionPreference = 'SilentlyContinue'
