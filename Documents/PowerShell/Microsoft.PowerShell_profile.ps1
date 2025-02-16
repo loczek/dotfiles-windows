@@ -31,11 +31,6 @@ Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory
 # Import Terminal Icons
 Import-Module -Name Terminal-Icons
 
-# Find out if the current user identity is elevated (has admin rights)
-$identity = [Security.Principal.WindowsIdentity]::GetCurrent()
-$principal = New-Object Security.Principal.WindowsPrincipal $identity
-$isAdmin = $principal.IsInRole([Security.Principal.WindowsBuiltInRole]::Administrator)
-
 function cd...  { Set-Location ..\.. }
 function cd.... { Set-Location ..\..\.. }
 function md5    { Get-FileHash -Algorithm MD5 $args }
@@ -81,11 +76,6 @@ function Edit-Profile {
         notepad $profile.CurrentUserAllHosts
     }
 }
-
-# We don't need these any more; they were just temporary variables to get to $isAdmin.
-# Delete them to prevent cluttering up the user profile.
-Remove-Variable identity
-Remove-Variable principal
 
 Function Test-CommandExists {
     Param ($command)
