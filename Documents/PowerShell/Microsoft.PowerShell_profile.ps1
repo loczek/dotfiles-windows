@@ -221,7 +221,7 @@ function pgrep($name) {
 }
 function encode64($value) {
     $Bytes = [System.Text.Encoding]::Unicode.GetBytes($value)
-    $EncodedText =[Convert]::ToBase64String($Bytes)
+    $EncodedText = [Convert]::ToBase64String($Bytes)
     $EncodedText
 }
 function decode64($value) {
