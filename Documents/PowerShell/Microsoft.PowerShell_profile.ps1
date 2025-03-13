@@ -1,5 +1,3 @@
-oh-my-posh init pwsh --config "$env:POSH_THEMES_PATH/pure.omp.json" | Invoke-Expression
-
 function dotfiles { git --git-dir=$Home/dotfiles/ --work-tree=$HOME @Args }
 function dotfiles-lazy { lazygit --git-dir=$Home/dotfiles/ --work-tree=$HOME @Args }
 
@@ -266,3 +264,4 @@ function flushdns {
 
 Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
 
+Invoke-Expression (&starship init powershell)

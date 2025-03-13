@@ -1,0 +1,15 @@
+"$schema" = 'https://starship.rs/config-schema.json'
+
+format = "[λ](bold blue) $all"
+
+right_format = "$cmd_time"
+
+[aws]
+disabled = true
+
+[character]
+success_symbol = '[~>](bold green)'
+error_symbol = "[~>|](bold red)"
+
+[line_break]
+disabled = true
