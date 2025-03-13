@@ -25,21 +25,21 @@ Set-PSReadLineKeyHandler -Key DownArrow -Function HistorySearchForward
 # tab style completions
 Set-PSReadLineKeyHandler -Key Tab -Function Complete
 
-$env:_PSFZF_FZF_DEFAULT_OPTS="--height 40%"
+$env:_PSFZF_FZF_DEFAULT_OPTS = "--height 40%"
 Set-PsFzfOption -PSReadlineChordProvider 'Ctrl+t' -PSReadlineChordReverseHistory 'Ctrl+r'
 
 # Import Terminal Icons
 Import-Module -Name Terminal-Icons
 
-function cd...  { Set-Location ..\.. }
+function cd... { Set-Location ..\.. }
 function cd.... { Set-Location ..\..\.. }
-function md5    { Get-FileHash -Algorithm MD5 $args }
-function sha1   { Get-FileHash -Algorithm SHA1 $args }
+function md5 { Get-FileHash -Algorithm MD5 $args }
+function sha1 { Get-FileHash -Algorithm SHA1 $args }
 function sha256 { Get-FileHash -Algorithm SHA256 $args }
-function n      { notepad $args }
-function HKLM:  { Set-Location HKLM: }
-function HKCU:  { Set-Location HKCU: }
-function Env:   { Set-Location Env: }
+function n { notepad $args }
+function HKLM: { Set-Location HKLM: }
+function HKCU: { Set-Location HKCU: }
+function Env: { Set-Location Env: }
 
 # Does the the rough equivalent of dir /s /b. For example, dirs *.png is dir /s /b *.png
 function dirs {
@@ -55,10 +55,10 @@ function dirs {
 # of PowerShell is started.
 function admin {
     if ($args.Count -gt 0) {
-       $argList = "& '" + $args + "'"
-       Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
+        $argList = "& '" + $args + "'"
+        Start-Process "$psHome\powershell.exe" -Verb runAs -ArgumentList $argList
     } else {
-       Start-Process "$psHome\powershell.exe" -Verb runAs
+        Start-Process "$psHome\powershell.exe" -Verb runAs
     }
 }
 
@@ -81,9 +81,9 @@ Function Test-CommandExists {
     Param ($command)
     $oldPreference = $ErrorActionPreference
     $ErrorActionPreference = 'SilentlyContinue'
-    try {if(Get-Command $command){RETURN $true}}
-    Catch {Write-Host "$command does not exist"; RETURN $false}
-    Finally {$ErrorActionPreference=$oldPreference}
+    try { if (Get-Command $command) { RETURN $true } }
+    Catch { Write-Host "$command does not exist"; RETURN $false }
+    Finally { $ErrorActionPreference = $oldPreference }
 }
 #
 # Aliases
@@ -91,13 +91,13 @@ Function Test-CommandExists {
 # If your favorite editor is not here, add an elseif and ensure that the directory it is installed in exists in your $env:Path
 #
 if (Test-CommandExists zed) {
-    $EDITOR='zed'
-}elseif (Test-CommandExists code) {
-    $EDITOR='code'
+    $EDITOR = 'zed'
+} elseif (Test-CommandExists code) {
+    $EDITOR = 'code'
 } elseif (Test-CommandExists nvim) {
-    $EDITOR='nvim'
-}  elseif (Test-CommandExists notepad) {
-    $EDITOR='notepad'
+    $EDITOR = 'nvim'
+} elseif (Test-CommandExists notepad) {
+    $EDITOR = 'notepad'
 }
 
 Set-Alias -Name code -Value $EDITOR
@@ -194,7 +194,7 @@ function touch($file) {
 function df {
     get-volume
 }
-function sed($file, $find, $replace){
+function sed($file, $find, $replace) {
     (Get-Content $file).replace("$find", $replace) | Set-Content $file
 }
 function which($name) {
@@ -236,7 +236,7 @@ function trash($path) {
         $item = Get-Item $fullPath
 
         if ($item.PSIsContainer) {
-          # Handle directory
+            # Handle directory
             $parentPath = $item.Parent.FullName
         } else {
             # Handle file
@@ -260,8 +260,9 @@ function trash($path) {
 function k9 { Stop-Process -Name $args[0] }
 function sysinfo { Get-ComputerInfo }
 function flushdns {
-	Clear-DnsClientCache
-	Write-Host "DNS has been flushed"
+    Clear-DnsClientCache
+    Write-Host "DNS has been flushed"
 }
 
 Invoke-Expression (& { (zoxide init --cmd cd powershell | Out-String) })
+
